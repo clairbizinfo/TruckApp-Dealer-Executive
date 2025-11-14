@@ -305,7 +305,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
-        backgroundColor: '#f8f9fa',
+        backgroundColor: '#ffffff',
     },
     label: {
         fontSize: 14,
@@ -333,12 +333,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: 4,
     },
     submitBtn: {
-        backgroundColor: '#1868fd',
+        backgroundColor: '#2196f3',
         paddingVertical: 14,
-        borderRadius: 10,
+        borderRadius: 50,
         alignItems: 'center',
         marginTop: 30,
-        marginBottom: 50,
+        marginBottom: 40,
     },
     submitText: {
         color: '#fff',

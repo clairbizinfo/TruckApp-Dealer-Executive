@@ -9,8 +9,16 @@ const EnquiryScreenStack = createNativeStackNavigator<RootStackParamList>();
 
 export default function EnquiryScreenNavigator() {
     return (
-        <EnquiryScreenStack.Navigator initialRouteName="Enquiry" screenOptions={{ headerShown: true }}>
-            <EnquiryScreenStack.Screen name="Enquiry" component={Enquiry} options={{ title: "Enquiries" }} />
+        <EnquiryScreenStack.Navigator initialRouteName="EnquiryScreen" screenOptions={{
+            headerShown: true,
+            headerTintColor: '#2196f3',
+            headerTitleStyle: {
+                fontSize: 20,
+                fontWeight: '600',
+            },
+            headerShadowVisible: false,
+        }}>
+            <EnquiryScreenStack.Screen name="EnquiryScreen" component={Enquiry} options={{ title: "Enquiries" }} />
             <EnquiryScreenStack.Screen name="AddEnquiry" component={AddEnquiry} options={{ headerShown: true, title: "Add Enquiry" }} />
             <EnquiryScreenStack.Screen name='EnquiryDetails' component={EnquiryDetails} options={{ headerShown: true, title: "Enquiry Details" }} />
         </EnquiryScreenStack.Navigator>

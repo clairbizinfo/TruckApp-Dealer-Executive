@@ -96,7 +96,7 @@ const Sidebar: React.FC<SidebarProps> = ({ visible, onClose }) => {
                         style={styles.menuItem}
                         onPress={() => handleNavigate('Profile')}
                     >
-                        <Feather name="user" size={20} color="#343a40" />
+                        <Feather name="user" size={20} color="#6c757d" />
                         <Text style={styles.menuText}>Profile</Text>
                     </TouchableOpacity>
 
@@ -104,7 +104,7 @@ const Sidebar: React.FC<SidebarProps> = ({ visible, onClose }) => {
                         style={styles.menuItem}
                         onPress={() => handleNavigate('Dashboard')}
                     >
-                        <MaterialCommunityIcons name="chart-box-outline" size={24} color="#343a40" />
+                        <MaterialCommunityIcons name="chart-box-outline" size={24} color="#6c757d" />
                         <Text style={styles.menuText}>Dashboard</Text>
                     </TouchableOpacity>
 
@@ -112,7 +112,7 @@ const Sidebar: React.FC<SidebarProps> = ({ visible, onClose }) => {
                         style={styles.menuItem}
                         onPress={() => handleNavigate('Enquiry')}
                     >
-                        <MaterialCommunityIcons name="message-text-outline" size={24} color="#343a40" />
+                        <MaterialCommunityIcons name="message-text-outline" size={24} color="#6c757d" />
                         <Text style={styles.menuText}>Enquiry</Text>
                     </TouchableOpacity>
 
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     overlay: {
         position: 'absolute',
         top: 0, left: 0, right: 0, bottom: 0,
-        backgroundColor: 'rgba(0,0,0,0.35)',
+        backgroundColor: 'rgba(0,0,0,0.50)',
     },
 
     centerContainer: {
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         textAlign: 'center',
         marginBottom: 10,
-        color: '#343a40',
+        color: '#2196f3',
         paddingBottom: 10,
         borderBottomColor: "#e9ecef",
         borderBottomWidth: 0.5
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: '600',
         marginLeft: 10,
-        color: '#343a40',
+        color: '#6c757d',
     },
 
     logoutButton: {

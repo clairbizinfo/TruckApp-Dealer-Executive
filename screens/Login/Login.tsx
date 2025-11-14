@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         padding: 20
     },
-    title: { fontSize: 20, fontWeight: '700', textAlign: 'center', marginBottom: 20, color: "#495057" },
+    title: { fontSize: 20, fontWeight: '700', textAlign: 'center', marginBottom: 20, color: "#2196f3" },
     label: {
         fontSize: 14,
         fontWeight: '600',
@@ -237,13 +237,13 @@ const styles = StyleSheet.create({
         color: "#495057"
     },
     button: {
-        backgroundColor: '#0066ff',
+        backgroundColor: '#2196f3',
         paddingVertical: 12,
-        borderRadius: 5,
+        borderRadius: 50,
         alignItems: 'center',
     },
     buttonText: { color: '#fff', fontWeight: '700', fontSize: 15 },
     disabledButton: { opacity: 0.7 },
     closeBtn: { marginTop: 12, alignSelf: 'center' },
-    closeText: { color: '#0066ff', fontWeight: '600', fontSize: 15 },
+    closeText: { color: '#2196f3', fontWeight: '600', fontSize: 15 },
 });

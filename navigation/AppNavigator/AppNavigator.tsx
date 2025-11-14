@@ -16,7 +16,15 @@ export default function AppNavigator() {
             <Stack.Screen name='Home' component={HomeScreen} options={{ headerShown: false }} />
             <Stack.Screen name="Dashboard" component={DashboardScreenNavigator} options={{ headerShown: false }} />
             <Stack.Screen name="Enquiry" component={EnquiryScreenNavigator} options={{ headerShown: false }} />
-            <Stack.Screen name="Profile" component={Profile} options={{ headerShown: true }} />
+            <Stack.Screen name="Profile" component={Profile} options={{
+                headerShown: true,
+                headerTintColor: '#2196f3',
+                headerTitleStyle: {
+                    fontSize: 20,
+                    fontWeight: '600',
+                },
+                headerShadowVisible: false,
+            }} />
         </Stack.Navigator>
     );
 }

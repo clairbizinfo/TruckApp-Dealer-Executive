@@ -1,39 +1,45 @@
 import React from 'react';
-import { View, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-
+import { useAuth } from '../context/AuthContext';
 
 interface HeaderProps {
-    title?: string;
     onMenuPress?: () => void;
     onProfilePress?: () => void;
 }
 
 const CustomHeader: React.FC<HeaderProps> = ({ onMenuPress, onProfilePress }) => {
 
+    const { user } = useAuth();
+
+    const userName = user?.name || "User";
+    const firstLetter = userName.charAt(0).toUpperCase();
+
     return (
         <View style={styles.container}>
+
+            <View style={styles.leftSection}>
+
+                <TouchableOpacity activeOpacity={0.7} onPress={onProfilePress}>
+                    <View style={styles.avatar}>
+                        <Text style={styles.avatarText}>{firstLetter}</Text>
+                    </View>
+                </TouchableOpacity>
+
+                <View>
+                    <Text style={styles.welcomeText}>Hi, Welcome Back!</Text>
+                    <Text style={styles.userName}>{userName}</Text>
+                </View>
+            </View>
 
             <TouchableOpacity
                 activeOpacity={0.7}
                 onPress={onMenuPress}
                 style={styles.iconButton}
             >
-                <MaterialIcons name="menu" size={34} color="#343a40" />
+                <MaterialIcons name="menu" size={30} color="#ffffff" />
             </TouchableOpacity>
 
-
-            {/* Right Profile Icon */}
-            <TouchableOpacity
-                activeOpacity={0.7}
-                onPress={onProfilePress}
-                style={styles.iconButton}
-            >
-                <Image
-                    source={require('../assets/user.png')}
-                    style={styles.profileImage}
-                />
-            </TouchableOpacity>
         </View>
     );
 };
@@ -45,17 +51,46 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingHorizontal: 0,
-        paddingTop: 0,
         marginTop: 50,
+        paddingHorizontal: 0,
     },
-    iconButton: {
-        padding: 0,
+
+    leftSection: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 12
+    },
+
+    avatar: {
+        width: 45,
+        height: 45,
+        borderRadius: 45,
+        backgroundColor: "#2196f3",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+
+    avatarText: {
+        color: "#fff",
         fontSize: 20,
+        fontWeight: "600",
     },
-    profileImage: {
-        width: 32,
-        height: 32,
-        borderRadius: 16,
+
+    welcomeText: {
+        fontSize: 16,
+        color: "#2196f3",
+    },
+
+    userName: {
+        fontSize: 16,
+        fontWeight: "600",
+        color: "#495057",
+        marginTop: -2,
+    },
+
+    iconButton: {
+        padding: 10,
+        backgroundColor: "#2196f3",
+        borderRadius: 50,
     },
 });

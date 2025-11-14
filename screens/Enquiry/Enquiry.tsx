@@ -216,7 +216,7 @@ export default Enquiry;
 const styles = StyleSheet.create({
 
 
-    container: { flex: 1, backgroundColor: '#f8f9fa', padding: 16, paddingBottom: 25 },
+    container: { flex: 1, backgroundColor: '#ffffff', padding: 16, paddingBottom: 25 },
     center: { flex: 1, justifyContent: 'center', alignItems: 'center' },
     loading: { fontSize: 18, fontWeight: '600', color: '#555' },
 
@@ -224,21 +224,21 @@ const styles = StyleSheet.create({
         width: '100%',
         padding: 15,
         borderRadius: 8,
-        backgroundColor: '#FFF8E1',
+        backgroundColor: '#edf2fb',
         marginBottom: 10,
         display: 'flex',
         alignItems: 'center',
         marginTop: 10,
     },
 
-    alertText: { color: '#B8860B', fontSize: 15, fontWeight: '400' },
+    alertText: { color: '#2196f3', fontSize: 15, fontWeight: '400' },
 
     loginBtn: {
         width: "100%",
-        backgroundColor: '#0066ff',
+        backgroundColor: '#2196f3',
         paddingVertical: 14,
         paddingHorizontal: 15,
-        borderRadius: 8,
+        borderRadius: 50,
         textAlign: 'center',
         marginTop: 10,
         display: 'flex',
@@ -248,25 +248,20 @@ const styles = StyleSheet.create({
     loginBtnText: { color: '#fff', fontWeight: '700', fontSize: 16 },
 
     addBtn: {
-        backgroundColor: '#0066ff',
+        backgroundColor: '#2196f3',
         paddingVertical: 16,
-        borderRadius: 8,
+        borderRadius: 50,
         alignItems: 'center',
         marginBottom: 8,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 3 },
-        shadowOpacity: 0.18,
-        shadowRadius: 4.6,
-        elevation: 6,
     },
 
     addBtnText: { color: '#fff', fontSize: 16, fontWeight: '700' },
 
     card: {
-        backgroundColor: '#ffffff',
+        backgroundColor: '#edf2fb',
         padding: 15,
         borderRadius: 12,
-        marginBottom: 8,
+        marginBottom: 10,
         borderWidth: 1,
         borderColor: '#f1f3f4',
     },
@@ -281,14 +276,14 @@ const styles = StyleSheet.create({
     cardTitle: {
         fontSize: 15,
         fontWeight: '600',
-        color: '#212529',
+        color: '#2196f3',
         flex: 1,
     },
 
     cardDateRight: {
         fontSize: 13,
         fontWeight: '500',
-        color: '#6c757d',
+        color: '#2196f3',
     },
 
     row: {

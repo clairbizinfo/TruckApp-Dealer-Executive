@@ -34,14 +34,14 @@ const features: Feature[] = [
     id: '1',
     title: 'Dashboard',
     image: require('../../assets/dashboard.png'),
-    color: '#0288D1',
+    color: '#2196f3',
     navigateTo: 'Dashboard',
   },
   {
     id: '2',
     title: 'Enquiry',
     image: require('../../assets/Enquiry.png'),
-    color: '#EF6C00',
+    color: '#2196f3',
     navigateTo: 'Enquiry',
   },
   // {
@@ -115,7 +115,6 @@ const HomeScreen = () => {
     <View style={styles.container}>
 
       <CustomHeader
-        title="Truck Deals"
         onMenuPress={toggleSidebar}
         onProfilePress={() => navigation.navigate('Profile')}
       />
@@ -170,7 +169,7 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    backgroundColor: '#f8f9fa',
+    backgroundColor: '#ffffff',
     paddingHorizontal: 16,
   },
 

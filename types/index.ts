@@ -2,16 +2,23 @@ export type RootStackParamList = {
     Login: undefined;
     Otp: { id: string; mobileNo: string } | undefined;
     Details: { mobileNo: string } | undefined;
+
     Main: undefined;
     Profile: undefined;
     Home: undefined;
-    Enquiry: undefined;
+
+    Dashboard: undefined;          // tab route
+    DashboardScreen: undefined;    // internal route
+
+    Enquiry: undefined;            // tab route
+    EnquiryScreen: undefined;      // internal route
+
     AddTruck: undefined;
-    Dashboard: undefined;
     AddTruckForm: undefined;
     AddEnquiry: undefined;
     EnquiryDetails: undefined;
 };
+
 
 export type BottomTabParamList = {
     Home: undefined;

@@ -76,16 +76,14 @@ export default EnquiryDetails;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#f8f9fa",
+        backgroundColor: "#ffffff",
         padding: 16,
     },
 
     card: {
-        backgroundColor: "#fff",
+        backgroundColor: "#edf2fb",
         padding: 20,
-        borderRadius: 8,
-        borderWidth: 1,
-        borderColor: "#e1e4e8",
+        borderRadius: 12,
     },
 
     row: {
@@ -98,7 +96,7 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: "600",
         marginLeft: 8,
-        color: "#212529",
+        color: "#6c757d",
         width: 160,
     },
 
