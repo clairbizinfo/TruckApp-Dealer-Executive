@@ -8,6 +8,9 @@ export type RootStackParamList = {
     Enquiry: undefined;
     AddTruck: undefined;
     Dashboard: undefined;
+    AddTruckForm: undefined;
+    AddEnquiry: undefined;
+    EnquiryDetails: undefined;
 };
 
 export type BottomTabParamList = {

@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { getToken } from '../AuthenticationService/tokenService';
 
-const API_BASE_URL = 'http://192.168.1.7:8080/api/user'; // your backend
+const API_BASE_URL = 'http://192.168.1.7:8080/api/dealer'; 
 
 const axiosInstance = axios.create({
     baseURL: API_BASE_URL,

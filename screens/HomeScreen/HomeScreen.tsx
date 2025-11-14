@@ -2,7 +2,6 @@ import React from 'react';
 import {
   View,
   Text,
-  TextInput,
   StyleSheet,
   FlatList,
   Image,
@@ -35,23 +34,23 @@ const features: Feature[] = [
     id: '1',
     title: 'Dashboard',
     image: require('../../assets/dashboard.png'),
-    color: '#2563EB',
+    color: '#0288D1',
     navigateTo: 'Dashboard',
   },
   {
     id: '2',
-    title: 'Enquiries',
+    title: 'Enquiry',
     image: require('../../assets/Enquiry.png'),
-    color: '#059669',
+    color: '#EF6C00',
     navigateTo: 'Enquiry',
   },
-  {
-    id: '3',
-    title: 'Add Truck',
-    image: require('../../assets/Add.png'),
-    color: '#7b2cbf',
-    navigateTo: 'AddTruck',
-  },
+  // {
+  //   id: '3',
+  //   title: 'Add Truck',
+  //   image: require('../../assets/Add.png'),
+  //   color: '#7b2cbf',
+  //   navigateTo: 'AddTruck',
+  // },
   // {
   //   id: '4',
   //   title: '',
@@ -171,7 +170,7 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    backgroundColor: '#e9ecef',
+    backgroundColor: '#f8f9fa',
     paddingHorizontal: 16,
   },
 
@@ -229,7 +228,7 @@ const styles = StyleSheet.create({
   },
 
   gridContainer: {
-    marginTop: 30,
+    marginTop: 40,
   },
 
   row: {

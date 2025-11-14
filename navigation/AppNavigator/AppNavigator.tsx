@@ -6,7 +6,6 @@ import Profile from '../../screens/Profile/Profile';
 import HomeScreen from '../../screens/HomeScreen/HomeScreen';
 import DashboardScreenNavigator from '../DashboardNavigation/DashboardNavigation';
 import EnquiryScreenNavigator from '../EnquiryNavigation/EnquiryNavigation';
-import AddTruckScreenNavigator from '../AddTruckNavigation/AddTruckNavigation';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -17,7 +16,6 @@ export default function AppNavigator() {
             <Stack.Screen name='Home' component={HomeScreen} options={{ headerShown: false }} />
             <Stack.Screen name="Dashboard" component={DashboardScreenNavigator} options={{ headerShown: false }} />
             <Stack.Screen name="Enquiry" component={EnquiryScreenNavigator} options={{ headerShown: false }} />
-            <Stack.Screen name="AddTruck" component={AddTruckScreenNavigator} options={{ headerShown: false }} />
             <Stack.Screen name="Profile" component={Profile} options={{ headerShown: true }} />
         </Stack.Navigator>
     );

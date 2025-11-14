@@ -5,16 +5,14 @@ import {
     TouchableOpacity,
     StyleSheet,
     Animated,
-    Dimensions,
     TouchableWithoutFeedback,
+    Modal,
+    Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
 import { useAuth } from '../context/AuthContext';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-
-
-const { width } = Dimensions.get('window');
 
 interface SidebarProps {
     visible: boolean;
@@ -23,15 +21,39 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ visible, onClose }) => {
     const navigation = useNavigation();
-    const slideAnim = React.useRef(new Animated.Value(-width)).current;
     const { token, logout } = useAuth();
 
+    const scaleAnim = React.useRef(new Animated.Value(0.8)).current;
+    const fadeAnim = React.useRef(new Animated.Value(0)).current;
+
     React.useEffect(() => {
-        Animated.timing(slideAnim, {
-            toValue: visible ? 0 : -width,
-            duration: 300,
-            useNativeDriver: true,
-        }).start();
+        if (visible) {
+            Animated.parallel([
+                Animated.timing(scaleAnim, {
+                    toValue: 1,
+                    duration: 100,
+                    useNativeDriver: true,
+                }),
+                Animated.timing(fadeAnim, {
+                    toValue: 1,
+                    duration: 100,
+                    useNativeDriver: true,
+                }),
+            ]).start();
+        } else {
+            Animated.parallel([
+                Animated.timing(scaleAnim, {
+                    toValue: 0.8,
+                    duration: 100,
+                    useNativeDriver: true,
+                }),
+                Animated.timing(fadeAnim, {
+                    toValue: 0,
+                    duration: 100,
+                    useNativeDriver: true,
+                }),
+            ]).start();
+        }
     }, [visible]);
 
     const handleNavigate = (route: string) => {
@@ -42,35 +64,39 @@ const Sidebar: React.FC<SidebarProps> = ({ visible, onClose }) => {
     const handleLogout = async () => {
         onClose();
         await logout();
-        navigation.navigate('Login' as never);
+        Alert.alert('Logged Out Successfully ');
     };
 
     return (
-        <>
+        <Modal
+            visible={visible}
+            transparent
+            animationType="fade"
+            statusBarTranslucent
+        >
             {/* Overlay */}
-            {visible && (
-                <TouchableWithoutFeedback onPress={onClose}>
-                    <View style={styles.overlay} />
-                </TouchableWithoutFeedback>
-            )}
+            <TouchableWithoutFeedback onPress={onClose}>
+                <View style={styles.overlay} />
+            </TouchableWithoutFeedback>
 
-            {/* Sidebar */}
-            <Animated.View
-                style={[
-                    styles.sidebar,
-                    {
-                        transform: [{ translateX: slideAnim }],
-                    },
-                ]}
-            >
-                <View style={styles.menuContainer}>
+            {/* Center Modal */}
+            <View style={styles.centerContainer}>
+                <Animated.View
+                    style={[
+                        styles.modalBox,
+                        {
+                            transform: [{ scale: scaleAnim }],
+                            opacity: fadeAnim,
+                        },
+                    ]}
+                >
                     <Text style={styles.title}>Menu</Text>
 
                     <TouchableOpacity
                         style={styles.menuItem}
                         onPress={() => handleNavigate('Profile')}
                     >
-                        <Feather name="user" size={20} color="#212529" />
+                        <Feather name="user" size={20} color="#343a40" />
                         <Text style={styles.menuText}>Profile</Text>
                     </TouchableOpacity>
 
@@ -78,26 +104,17 @@ const Sidebar: React.FC<SidebarProps> = ({ visible, onClose }) => {
                         style={styles.menuItem}
                         onPress={() => handleNavigate('Dashboard')}
                     >
-                        <MaterialCommunityIcons name="chart-box-outline" size={24} color="black" />
+                        <MaterialCommunityIcons name="chart-box-outline" size={24} color="#343a40" />
                         <Text style={styles.menuText}>Dashboard</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
                         style={styles.menuItem}
-                        onPress={() => handleNavigate('Used')}
+                        onPress={() => handleNavigate('Enquiry')}
                     >
-                        <MaterialCommunityIcons name="message-text-outline" size={24} color="black" />
+                        <MaterialCommunityIcons name="message-text-outline" size={24} color="#343a40" />
                         <Text style={styles.menuText}>Enquiry</Text>
                     </TouchableOpacity>
-
-                    <TouchableOpacity
-                        style={styles.menuItem}
-                        onPress={() => handleNavigate('Sell')}
-                    >
-                        <MaterialCommunityIcons name="plus-box-outline" size={24} color="black" />
-                        <Text style={styles.menuText}>Add Truck</Text>
-                    </TouchableOpacity>
-
 
                     {token && (
                         <TouchableOpacity
@@ -108,9 +125,9 @@ const Sidebar: React.FC<SidebarProps> = ({ visible, onClose }) => {
                             <Text style={styles.logoutText}>Logout</Text>
                         </TouchableOpacity>
                     )}
-                </View>
-            </Animated.View>
-        </>
+                </Animated.View>
+            </View>
+        </Modal>
     );
 };
 
@@ -119,52 +136,59 @@ export default Sidebar;
 const styles = StyleSheet.create({
     overlay: {
         position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: 'rgba(0,0,0,0.4)',
-        zIndex: 9999,
+        top: 0, left: 0, right: 0, bottom: 0,
+        backgroundColor: 'rgba(0,0,0,0.35)',
     },
-    sidebar: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: width * 0.75,
-        height: '100%',
-        backgroundColor: '#fff',
-        paddingTop: 70,
-        paddingHorizontal: 20,
-        zIndex: 10000,
-    },
-    menuContainer: {
+
+    centerContainer: {
         flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: 20,
     },
+
+    modalBox: {
+        width: '100%',
+        backgroundColor: '#fff',
+        borderRadius: 8,
+        paddingVertical: 20,
+        paddingHorizontal: 20,
+    },
+
     title: {
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: '700',
-        marginBottom: 30,
-        color: '#212529',
+        textAlign: 'center',
+        marginBottom: 10,
+        color: '#343a40',
+        paddingBottom: 10,
+        borderBottomColor: "#e9ecef",
+        borderBottomWidth: 0.5
     },
+
     menuItem: {
         flexDirection: 'row',
         alignItems: 'center',
-        paddingVertical: 14,
+        justifyContent: 'flex-start',
+        paddingVertical: 10,
     },
+
     menuText: {
-        fontSize: 16,
-        fontWeight: '500',
+        fontSize: 15,
+        fontWeight: '600',
         marginLeft: 10,
-        color: '#212529',
+        color: '#343a40',
     },
+
     logoutButton: {
-        marginTop: 10, // ✅ space below last link
+        marginTop: 16,
         borderTopWidth: 1,
-        borderTopColor: '#f0f0f0',
+        borderTopColor: '#eee',
         paddingTop: 14,
     },
+
     logoutText: {
-        fontSize: 16,
+        fontSize: 15,
         fontWeight: '600',
         color: '#e63946',
         marginLeft: 10,

@@ -20,6 +20,7 @@ interface LoginModalProps {
 
 const LoginModal: React.FC<LoginModalProps> = ({ visible, onClose }) => {
     const [mobileNo, setMobileNo] = useState('');
+    const [name, setName] = useState('');
     const [otp, setOtp] = useState(['', '', '', '', '', '']);
     const [id, setId] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
@@ -37,7 +38,8 @@ const LoginModal: React.FC<LoginModalProps> = ({ visible, onClose }) => {
 
         try {
             setLoading(true);
-            const resp = await registerMobile(`+91${mobileNo}`);
+            const resp = await registerMobile(`+91${mobileNo}`, name);
+            console.log('Register mobile response in UI:', resp);
             if (resp && resp.id) {
                 setId(resp.id);
                 setOtpSent(true);
@@ -51,6 +53,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ visible, onClose }) => {
             setLoading(false);
         }
     };
+
 
     const handleVerifyOtp = async () => {
 
@@ -99,6 +102,19 @@ const LoginModal: React.FC<LoginModalProps> = ({ visible, onClose }) => {
             <View style={styles.overlay}>
                 <View style={styles.modalContainer}>
                     <Text style={styles.title}>Login</Text>
+
+                    {/* ✅ Label full name */}
+                    <Text style={styles.label}>Full Name</Text>
+                    <View style={styles.inputContainer}>
+                        <TextInput
+                            style={styles.input}
+                            placeholder=""
+                            keyboardType="default"
+                            value={name}
+                            onChangeText={setName}
+                            editable={!otpSent}
+                        />
+                    </View>
 
                     {/* ✅ Label for Mobile Number */}
                     <Text style={styles.label}>Mobile Number</Text>
@@ -174,26 +190,26 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.5)',
     },
     modalContainer: {
-        width: '88%',
+        width: '92%',
         backgroundColor: '#ffffff',
-        borderRadius: 12,
+        borderRadius: 8,
         padding: 20
     },
-    title: { fontSize: 20, fontWeight: '700', textAlign: 'center', marginBottom: 20, color: "#343a40" },
+    title: { fontSize: 20, fontWeight: '700', textAlign: 'center', marginBottom: 20, color: "#495057" },
     label: {
         fontSize: 14,
         fontWeight: '600',
-        color: '#343a40',
+        color: '#495057',
         marginBottom: 8,
     },
     inputContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         borderWidth: 1,
-        borderColor: '#ddd',
-        borderRadius: 10,
-        paddingHorizontal: 10,
-        backgroundColor: '#FAFAFA',
+        borderColor: '#e9ecef',
+        borderRadius: 5,
+        paddingHorizontal: 2,
+        backgroundColor: '#fff',
         marginBottom: 20,
     },
     prefixContainer: {
@@ -202,7 +218,7 @@ const styles = StyleSheet.create({
         borderRightColor: '#ccc',
     },
     prefixText: { fontWeight: '600', color: '#343a40' },
-    input: { flex: 1, padding: 10, fontSize: 14, fontWeight: 600, color: "#343a40" },
+    input: { flex: 1, padding: 10, fontSize: 14, fontWeight: 600, color: "#495057" },
     otpContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -212,22 +228,22 @@ const styles = StyleSheet.create({
         width: 40,
         height: 45,
         borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 6,
+        borderColor: '#e9ecef',
+        borderRadius: 5,
         textAlign: 'center',
         fontSize: 18,
         fontWeight: 500,
-        backgroundColor: '#FAFAFA',
-        color: "#343a40"
+        backgroundColor: '#ffffff',
+        color: "#495057"
     },
     button: {
-        backgroundColor: '#1868fd',
+        backgroundColor: '#0066ff',
         paddingVertical: 12,
-        borderRadius: 10,
+        borderRadius: 5,
         alignItems: 'center',
     },
-    buttonText: { color: '#fff', fontWeight: '700', fontSize: 14 },
+    buttonText: { color: '#fff', fontWeight: '700', fontSize: 15 },
     disabledButton: { opacity: 0.7 },
     closeBtn: { marginTop: 12, alignSelf: 'center' },
-    closeText: { color: '#1868fd', fontWeight: '600' },
+    closeText: { color: '#0066ff', fontWeight: '600', fontSize: 15 },
 });

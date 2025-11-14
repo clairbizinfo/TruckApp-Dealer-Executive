@@ -13,13 +13,13 @@ const CustomHeader: React.FC<HeaderProps> = ({ onMenuPress, onProfilePress }) =>
 
     return (
         <View style={styles.container}>
-            {/* Left Menu Icon */}
+
             <TouchableOpacity
                 activeOpacity={0.7}
                 onPress={onMenuPress}
                 style={styles.iconButton}
             >
-                <MaterialIcons name="menu" size={26} color="black" />
+                <MaterialIcons name="menu" size={34} color="#343a40" />
             </TouchableOpacity>
 
 
@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingHorizontal: 0,
         paddingTop: 0,
-        paddingBottom: 0,
         marginTop: 50,
     },
     iconButton: {
@@ -55,8 +54,8 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     profileImage: {
-        width: 29,
-        height: 29,
+        width: 32,
+        height: 32,
         borderRadius: 16,
     },
 });
