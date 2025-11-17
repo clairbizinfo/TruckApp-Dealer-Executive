@@ -1,26 +1,71 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator, Alert, TextInput, Image, TouchableOpacity } from 'react-native';
 import { useAuth } from '../../context/AuthContext';
 import LoginModal from '../../screens/Login/Login';
+
+import { getProfileDetails, updateProfileDetails } from '../../services/ProfileServices/profileServices';
 
 const Profile = () => {
     const { token, logout, isLoading } = useAuth();
     const [showLoginModal, setShowLoginModal] = useState(false);
 
-    // Dummy User Data
     const [formData, setFormData] = useState({
-        fullName: "Pavan Kalamkar",
-        mobile: "9876543210",
-        pincode: "411028"
+        fullName: "",
+        mobile: "",
+        pincode: ""
     });
 
     const [isEditing, setIsEditing] = useState(false);
+    const [loadingProfile, setLoadingProfile] = useState(false);
 
-    const handleUpdateOrSave = () => {
-        if (isEditing) {
-            Alert.alert("Profile Saved");
+    // =============================
+    //   FETCH PROFILE DETAILS
+    // =============================
+    const loadProfile = async () => {
+        try {
+            setLoadingProfile(true);
+            const response = await getProfileDetails();
+
+            setFormData({
+                fullName: response?.userName || "",
+                mobile: response?.mobileNo || "",
+                pincode: response?.address?.pinCode || ""
+            });
+        } catch (err: any) {
+            Alert.alert("Error", err?.message || "Failed to load profile");
+        } finally {
+            setLoadingProfile(false);
         }
-        setIsEditing(!isEditing);
+    };
+
+    useEffect(() => {
+        if (token) loadProfile();
+    }, [token]);
+
+    // =============================
+    //   UPDATE PROFILE DETAILS
+    // =============================
+    const handleUpdateOrSave = async () => {
+        if (!isEditing) {
+            setIsEditing(true);
+            return;
+        }
+
+        try {
+            const payload = {
+                userName: formData.fullName,
+                address: {
+                    pinCode: formData.pincode
+                }
+            };
+
+            await updateProfileDetails(payload);
+
+            Alert.alert("Success", "Profile updated successfully");
+            setIsEditing(false);
+        } catch (err: any) {
+            Alert.alert("Update Failed", err?.message || "Could not update profile");
+        }
     };
 
     const handleLogout = async () => {
@@ -32,7 +77,7 @@ const Profile = () => {
         }
     };
 
-    if (isLoading) {
+    if (isLoading || loadingProfile) {
         return (
             <View style={styles.loader}>
                 <ActivityIndicator size="large" />
@@ -40,8 +85,7 @@ const Profile = () => {
         );
     }
 
-    // First letter of full name
-    const avatarLetter = formData.fullName.charAt(0).toUpperCase();
+    const avatarLetter = formData.fullName?.charAt(0)?.toUpperCase() || "U";
 
     return (
         <View style={styles.container}>
@@ -67,11 +111,9 @@ const Profile = () => {
 
                         <Text style={styles.label}>Mobile Number</Text>
                         <TextInput
-                            style={[styles.input, !isEditing && styles.disabledInput]}
+                            style={[styles.input, styles.disabledInput]}
                             value={formData.mobile}
-                            editable={isEditing}
-                            keyboardType="number-pad"
-                            onChangeText={(text) => setFormData({ ...formData, mobile: text })}
+                            editable={false} // NOT editable as per API rules
                         />
 
                         <Text style={styles.label}>Pin Code</Text>
@@ -83,7 +125,7 @@ const Profile = () => {
                             onChangeText={(text) => setFormData({ ...formData, pincode: text })}
                         />
 
-                        {/* Update / Save Button */}
+                        {/* Update / SaveButton */}
                         <TouchableOpacity style={styles.primaryButton} onPress={handleUpdateOrSave}>
                             <Text style={styles.primaryButtonText}>
                                 {isEditing ? "Save" : "Update"}
@@ -99,12 +141,14 @@ const Profile = () => {
                 </>
             ) : (
                 <>
-                    <Text style={styles.info}>You are not logged in.</Text>
+                    <View style={styles.form}>
+                        <Text style={styles.info}>You are not logged in.</Text>
 
-                    {/* Login Button */}
-                    <TouchableOpacity style={styles.primaryButton} onPress={() => setShowLoginModal(true)}>
-                        <Text style={styles.primaryButtonText}>Login</Text>
-                    </TouchableOpacity>
+                        {/* Login Button */}
+                        <TouchableOpacity style={styles.primaryButton} onPress={() => setShowLoginModal(true)}>
+                            <Text style={styles.primaryButtonText}>Login</Text>
+                        </TouchableOpacity>
+                    </View>
                 </>
             )}
 
@@ -162,7 +206,7 @@ const styles = StyleSheet.create({
     },
     avatarName: {
         marginTop: 10,
-        fontSize: 18,
+        fontSize: 22,
         fontWeight: '600',
         color: '#495057',
     },
@@ -186,15 +230,18 @@ const styles = StyleSheet.create({
         color: '#495057',
         backgroundColor: '#ffffff',
         fontWeight: '600',
+        paddingVertical: 16,
     },
     disabledInput: {
-        backgroundColor: '#edf2fb',
+        backgroundColor: '#ffffff',
         color: '#6c757d'
     },
     info: {
         fontSize: 16,
         marginBottom: 12,
         textAlign: 'center',
+        color: '#495057',
+        fontWeight: "400"
     },
 
     /* FOOTER */
@@ -214,10 +261,6 @@ const styles = StyleSheet.create({
         width: 100,
         height: 40,
     },
-
-    /* ============================
-         DIRECT BUTTON STYLES
-    ============================ */
 
     primaryButton: {
         backgroundColor: '#2196f3',

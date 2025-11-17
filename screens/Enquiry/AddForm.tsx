@@ -31,6 +31,7 @@ const AddEnquiry = () => {
     const [finance, setFinance] = useState('');
     const [freeVehicle, setFreeVehicle] = useState('');
     const [manufacturer, setManufacturer] = useState('');
+    const [remarks, setRemarks] = useState('');
     const [model, setModel] = useState('');
 
     // Lists
@@ -117,6 +118,7 @@ const AddEnquiry = () => {
             financed: Number(finance) || 0,
             free: Number(freeVehicle) || 0,
             owned: Number(owned) || 0,
+            remarks: remarks || '',
 
             vehicleDetails: {
                 oem: manufacturer,
@@ -275,6 +277,16 @@ const AddEnquiry = () => {
                                     ))}
                                 </Picker>
                             </View>
+
+
+                            {/* Remarks */}
+                            <Text style={styles.label}>Remarks</Text>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Remarks"
+                                value={remarks}
+                                onChangeText={setRemarks}
+                            />
 
                             {/* Submit */}
                             <TouchableOpacity
